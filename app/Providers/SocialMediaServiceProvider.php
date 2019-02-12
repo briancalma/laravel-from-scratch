@@ -25,7 +25,10 @@ class SocialMediaServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(Twitter::class, function() {
-            return new Twitter('Some API Key Here...');
+            // return new Twitter('Some API Key Here...');
+            
+            // Dynamically set the api key based on config file services.php
+            return new Twitter(config('services.twitter.public_key'));
         });
     }
 }

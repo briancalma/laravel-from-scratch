@@ -38,9 +38,16 @@ use App\Services\Twitter;
 /// Route::get('/', 'EventsController@index');
 
 /* Using a service provider to register the Twitter Service*/
-Route::get('/', function(Twitter $twitter) {
-    dd($twitter);    
+// Route::get('/', function(Twitter $twitter) {
+//     dd($twitter);    
+// });
+
+
+/** Using the env() and config() */
+Route::get('/', function(Twitter $twitter){
+   dd($twitter);
 });
+
 
 Route::resource('events','EventsController');
 
