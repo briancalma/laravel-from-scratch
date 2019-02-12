@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\Schema;
 
+use App\Services\Twitter;
+
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(Twitter::class , function() {
+            return new Twitter('api-key');
+        });
     }
 }

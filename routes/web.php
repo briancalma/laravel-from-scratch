@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Filesystem\Filesystem;
+use App\Services\Twitter;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,8 +35,12 @@ use Illuminate\Filesystem\Filesystem;
     // return view('welcome');
 // });
 
-Route::get('/', 'EventsController@index');
+/// Route::get('/', 'EventsController@index');
 
+/* Using a service provider to register the Twitter Service*/
+Route::get('/', function(Twitter $twitter) {
+    dd($twitter);    
+});
 
 Route::resource('events','EventsController');
 
