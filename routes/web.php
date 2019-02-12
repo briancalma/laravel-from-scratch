@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Filesystem\Filesystem;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +13,36 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// app()->bind('example', function(){
+//     return new App\Example;
+// });
+
+// use App\Example;
+
+// app()->singleton('example', function() {
+//     return new App\Example;
+// });
+
+
+
+// Route::get('/', function () {
+
+    ///dd(app(Filesystem::class));
+    // dd(app('\App\Example'));
+    // dd(app('example'), app('example'));
+
+    // return view('welcome');
+// });
+
+Route::get('/', 'EventsController@index');
 
 
 Route::resource('events','EventsController');
+
+Route::patch('/tasks/{task}', 'EventsTaskController@update');
+Route::post('/events/{event}/store', 'EventsTaskController@store');
+Route::post('/complete-task/{task}', 'CompletedTasksController@store');
+Route::delete('/complete-task/{task}', 'CompletedTasksController@destroy');
 
 /*
     Route::get('/events', 'EventsController@index');

@@ -11,6 +11,15 @@
         nav {
             margin-bottom: 50px;
         }
+
+        .invalid {
+            border: 1px solid red;
+        }
+
+        .is-finished {
+            text-decoration: line-through;
+        }
+
     </style>
 </head>
 <body>

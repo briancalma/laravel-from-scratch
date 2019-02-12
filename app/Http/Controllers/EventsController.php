@@ -38,12 +38,20 @@ class EventsController extends Controller
      */
     public function store()
     {
-        $event = new Event;
-        $event->title = request('title');
-        $event->description = request('description');
-        $event->user_id = 1; # Hard Coding of event.
+        // $event = new Event;
+        // $event->title = request('title');
+        // $event->description = request('description');
+        // $event->user_id = 1; # Hard Coding of event.
 
-        if( $event->save() ) return redirect('/events');
+        // if( $event->save() ) return redirect('/events');
+
+        request()->validate([
+            'title' => ['required','min:3'],
+            'description' => ['required','min:3']
+        ]);
+
+        Event::create(request(['title','description']));
+        return redirect('/events');
     }
 
     /**
@@ -52,9 +60,9 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        //
+        return view('events.show',compact('event'));
     }
 
     /**
@@ -63,9 +71,10 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
-        $event = Event::find($id);
+        # $event = Event::find($id);
+        # $event = Event::findOrFail($id);
         return view('events.edit', compact('event'));
     }
 
@@ -76,13 +85,16 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Event $event)
     {
-        $event = Event::find($id);
-        $event->title = request('title');
-        $event->description = request('description');
+        // $event = Event::findOrFail($id);
+        // $event->title = request('title');
+        // $event->description = request('description');
 
-        if( $event->save() ) return redirect('/events');
+        // if( $event->save() ) return redirect('/events');
+
+        $event->update(request(['title','description']));
+        return redirect('/events');
     }
 
     /**
@@ -91,9 +103,8 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        $event = Event::find($id);
         $event->delete();
         return redirect('/events');
     }

@@ -12,7 +12,6 @@
                         <th>#ID</th>
                         <th>TITLE</th>
                         <th>DESCRIPTION</th>
-                        <th>USER</th>
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
@@ -22,13 +21,14 @@
                             <td>#EVT_{{ $event->id }}</td>
                             <td>{{ $event->title }}</td>
                             <td>{{ $event->description }}</td>
-                            <td>{{ $event->user_id }}</td>
+                            {{-- <td>{{ $event->user_id }}</td> --}}
                             <td>
-                                <a class="btn btn-warning" href="/events/{{ $event->id }}/edit" role="button">Edit</a>
+                                <a class="btn btn-info btn-sm" href="/events/{{ $event->id }}" role="button">View</a>
+                                <a class="btn btn-warning btn-sm" href="/events/{{ $event->id }}/edit" role="button">Edit</a>
                                 <form action="/events/{{ $event->id }}" method="post" style="display:inline;">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <input class="btn btn-danger" type="submit" value="DELETE">
+                                    <input class="btn btn-danger btn-sm" type="submit" value="DELETE">
                                 </form>
                             </td>
                         </tr>
